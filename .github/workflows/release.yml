@@ -1,0 +1,199 @@
+#
+# Copyright (c) 2018-2026 Red Hat, Inc.
+# This program and the accompanying materials are made
+# available under the terms of the Eclipse Public License 2.0
+# which is available at https://www.eclipse.org/legal/epl-2.0/
+#
+# SPDX-License-Identifier: EPL-2.0
+#
+# Contributors:
+#   Red Hat, Inc. - initial API and implementation
+#
+
+name: Build and Release Plugins
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      plugins:
+        description: 'Plugins to build — comma-separated names or "all"'
+        required: false
+        default: 'all'
+
+jobs:
+  # ── 1. Detect which plugin directories changed ───────────────────────────
+  detect-changes:
+    name: Detect changed plugins
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.changed.outputs.matrix }}
+      any_changed: ${{ steps.changed.outputs.any_changed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2        # need parent commit for diff
+
+      - name: Find changed plugins
+        id: changed
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          DISPATCH_INPUT: ${{ github.event.inputs.plugins }}
+        run: |
+          set -euo pipefail
+
+          # Discover all plugin directories (contain plugin.json at root)
+          ALL_PLUGINS=()
+          for d in */; do
+            [ -f "${d}plugin.json" ] && ALL_PLUGINS+=("${d%/}")
+          done
+
+          # Decide which plugins to build
+          if [[ "$EVENT_NAME" == "workflow_dispatch" && "$DISPATCH_INPUT" != "all" && -n "$DISPATCH_INPUT" ]]; then
+            # explicit comma-separated list from workflow_dispatch
+            IFS=',' read -ra CHANGED <<< "$DISPATCH_INPUT"
+            CHANGED=("${CHANGED[@]// /}")    # trim spaces
+          elif [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            # workflow_dispatch with "all" → rebuild every plugin
+            CHANGED=("${ALL_PLUGINS[@]}")
+          else
+            # push event → diff against parent commit; only rebuild changed plugins
+            CHANGED=()
+            for plugin in "${ALL_PLUGINS[@]}"; do
+              if git diff --name-only HEAD^ HEAD -- "${plugin}/" | grep -q .; then
+                CHANGED+=("$plugin")
+              fi
+            done
+          fi
+
+          if [ ${#CHANGED[@]} -eq 0 ]; then
+            echo "No plugin changes detected."
+            echo "matrix={\"plugin\":[]}" >> "$GITHUB_OUTPUT"
+            echo "any_changed=false"      >> "$GITHUB_OUTPUT"
+          else
+            echo "Plugins to build: ${CHANGED[*]}"
+            JSON=$(printf '%s\n' "${CHANGED[@]}" | jq -R . | jq -cs '{plugin: .}')
+            echo "matrix=$JSON"      >> "$GITHUB_OUTPUT"
+            echo "any_changed=true"  >> "$GITHUB_OUTPUT"
+          fi
+
+  # ── 2. Build a ZIP for each changed plugin ───────────────────────────────
+  build:
+    name: Build ${{ matrix.plugin }}
+    needs: detect-changes
+    if: needs.detect-changes.outputs.any_changed == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build ZIP — ${{ matrix.plugin }}
+        env:
+          PLUGIN: ${{ matrix.plugin }}
+        run: |
+          OUT="${PLUGIN}.zip"
+
+          # Exclude test files, compiled artefacts, and TypeScript declaration
+          # maps produced by the standalone build — consumers get raw source.
+          zip -r "$OUT" "$PLUGIN" \
+            --exclude "*/node_modules/*" \
+            --exclude "*/__tests__/*" \
+            --exclude "*/__mocks__/*" \
+            --exclude "*/__snapshots__/*" \
+            --exclude "*/lib/*" \
+            --exclude "*.spec.ts" \
+            --exclude "*.spec.tsx" \
+            --exclude "*.d.ts" \
+            --exclude "*.d.ts.map" \
+            --exclude "*.js.map"
+
+          echo "Built: $OUT ($(du -sh "$OUT" | cut -f1))"
+
+      - name: Upload ZIP as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.plugin }}-zip
+          path: ${{ matrix.plugin }}.zip
+          retention-days: 7
+
+  # ── 3. Publish to GitHub Release ─────────────────────────────────────────
+  release:
+    name: Publish release
+    needs: [detect-changes, build]
+    if: needs.detect-changes.outputs.any_changed == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all ZIP artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-zip'
+          merge-multiple: true
+          path: dist/
+
+      - name: List built ZIPs
+        run: ls -lh dist/
+
+      - name: Compute release metadata
+        id: meta
+        env:
+          MATRIX: ${{ needs.detect-changes.outputs.matrix }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          SHORT_SHA="${COMMIT_SHA:0:7}"
+          DATE="$(date -u +%Y-%m-%d)"
+          echo "short_sha=$SHORT_SHA"    >> "$GITHUB_OUTPUT"
+          echo "release_name=Latest ($DATE)" >> "$GITHUB_OUTPUT"
+
+          # Build a human-readable list of updated plugins
+          PLUGINS_LIST=$(echo "$MATRIX" | jq -r '.plugin[] | "- \(.)"')
+          {
+            echo "plugins_list<<EOF"
+            echo "$PLUGINS_LIST"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create / update "latest" release
+        uses: softprops/action-gh-release@v2
+        env:
+          REPO: ${{ github.repository }}
+          SERVER: ${{ github.server_url }}
+          SHA: ${{ github.sha }}
+          RELEASE_NAME: ${{ steps.meta.outputs.release_name }}
+          SHORT_SHA: ${{ steps.meta.outputs.short_sha }}
+          PLUGINS_LIST: ${{ steps.meta.outputs.plugins_list }}
+        with:
+          tag_name: latest
+          name: ${{ steps.meta.outputs.release_name }}
+          prerelease: true
+          body: |
+            ## Eclipse Che Dashboard Plugins — latest build
+
+            **Commit:** [`${{ steps.meta.outputs.short_sha }}`](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})
+
+            ### Updated plugins in this build
+            ${{ steps.meta.outputs.plugins_list }}
+
+            ### How to use
+
+            Download the ZIP for the plugin you need and unpack it into the
+            `plugins/` directory of your Eclipse Che Dashboard checkout:
+
+            ```bash
+            curl -L https://github.com/${{ github.repository }}/releases/download/latest/<plugin-name>.zip \
+              -o <plugin-name>.zip
+            unzip <plugin-name>.zip -d /path/to/che-dashboard/plugins/
+            bash /path/to/che-dashboard/scripts/prepare-plugins.sh
+            ```
+
+            Then rebuild the dashboard (`yarn build`) or run `yarn local:patch`.
+          files: dist/*.zip
+          fail_on_unmatched_files: false
