@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@eclipse-che/dashboard-plugins": ["../packages/dashboard-plugins/src"],
+      "@/*": ["../packages/stubs/src/*"]
+    },
+    "types": ["jest", "@testing-library/jest-dom"]
+  },
+  "include": ["frontend", "backend"],
+  "exclude": ["node_modules", "lib"]
+}

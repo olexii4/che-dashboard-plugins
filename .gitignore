@@ -1,0 +1,6 @@
+node_modules/
+lib/
+*.js.map
+.yarn/cache
+.yarn/install-state.gz
+coverage/

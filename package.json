@@ -1,0 +1,45 @@
+{
+  "name": "che-dashboard-plugins",
+  "private": true,
+  "workspaces": [
+    "packages/dashboard-plugins",
+    "packages/stubs",
+    "ai-selector",
+    "dashboard-ai-agent"
+  ],
+  "scripts": {
+    "build": "yarn workspaces foreach -A --topological-dev run build",
+    "test": "yarn workspaces foreach -A run test --passWithNoTests",
+    "test:coverage": "yarn workspaces foreach -A run test --coverage --passWithNoTests",
+    "lint:check": "eslint '{ai-selector,dashboard-ai-agent}/frontend/**/*.{ts,tsx}' '{ai-selector,dashboard-ai-agent}/backend/**/*.ts'",
+    "lint:fix": "eslint --fix '{ai-selector,dashboard-ai-agent}/frontend/**/*.{ts,tsx}' '{ai-selector,dashboard-ai-agent}/backend/**/*.ts'",
+    "format:check": "prettier --check '{ai-selector,dashboard-ai-agent}/{frontend,backend}/**/*.{ts,tsx,css}'",
+    "format:fix": "prettier --write '{ai-selector,dashboard-ai-agent}/{frontend,backend}/**/*.{ts,tsx,css}'"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/jest": "^29.5.3",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/parser": "^6.4.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "prettier": "^3.3.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "redux": "^5.0.1"
+  }
+}

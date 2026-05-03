@@ -1,0 +1,18 @@
+{
+  "name": "@che-dashboard-plugins/dashboard-ai-agent",
+  "version": "1.0.0",
+  "description": "Devfile Creator with AI Agent plugin for Eclipse Che Dashboard",
+  "private": true,
+  "scripts": {
+    "build": "tsc -b",
+    "test": "jest --config ../jest.config.js --rootDir .. --testPathPattern=dashboard-ai-agent",
+    "lint:check": "eslint 'frontend/**/*.{ts,tsx}' 'backend/**/*.ts'",
+    "lint:fix": "eslint --fix 'frontend/**/*.{ts,tsx}' 'backend/**/*.ts'",
+    "format:check": "prettier --check '{frontend,backend}/**/*.{ts,tsx,css}'",
+    "format:fix": "prettier --write '{frontend,backend}/**/*.{ts,tsx,css}'"
+  },
+  "peerDependencies": {
+    "@eclipse-che/dashboard-plugins": "*",
+    "react": "^18.0.0"
+  }
+}

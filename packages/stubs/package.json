@@ -1,0 +1,7 @@
+{
+  "name": "@che-dashboard-plugins/stubs",
+  "version": "0.0.1",
+  "description": "Ambient type stubs for Eclipse Che Dashboard internals",
+  "private": true,
+  "types": "src/dashboard.d.ts"
+}

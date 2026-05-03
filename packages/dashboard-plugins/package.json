@@ -1,0 +1,14 @@
+{
+  "name": "@eclipse-che/dashboard-plugins",
+  "version": "0.0.1",
+  "description": "Type definitions and plugin registration API for Eclipse Che Dashboard plugins",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rm -rf lib"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}
