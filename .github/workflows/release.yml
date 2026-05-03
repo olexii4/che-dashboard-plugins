@@ -58,13 +58,19 @@ jobs:
             # workflow_dispatch with "all" → rebuild every plugin
             CHANGED=("${ALL_PLUGINS[@]}")
           else
-            # push event → diff against parent commit; only rebuild changed plugins
+            # push event → diff against parent commit; only rebuild changed plugins.
+            # On the very first push HEAD^ does not exist — rebuild all plugins.
             CHANGED=()
-            for plugin in "${ALL_PLUGINS[@]}"; do
-              if git diff --name-only HEAD^ HEAD -- "${plugin}/" | grep -q .; then
-                CHANGED+=("$plugin")
-              fi
-            done
+            if ! git rev-parse HEAD^ >/dev/null 2>&1; then
+              echo "[INFO] No parent commit (initial push) — building all plugins."
+              CHANGED=("${ALL_PLUGINS[@]}")
+            else
+              for plugin in "${ALL_PLUGINS[@]}"; do
+                if git diff --name-only HEAD^ HEAD -- "${plugin}/" | grep -q .; then
+                  CHANGED+=("$plugin")
+                fi
+              done
+            fi
           fi
 
           if [ ${#CHANGED[@]} -eq 0 ]; then
