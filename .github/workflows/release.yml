@@ -22,11 +22,17 @@ on:
         required: false
         default: 'all'
 
+env:
+  # Use Node.js 24 for all actions to avoid deprecation warnings
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   # ── 1. Detect which plugin directories changed ───────────────────────────
   detect-changes:
     name: Detect changed plugins
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     outputs:
       matrix: ${{ steps.changed.outputs.matrix }}
       any_changed: ${{ steps.changed.outputs.any_changed }}
@@ -40,6 +46,8 @@ jobs:
         env:
           EVENT_NAME: ${{ github.event_name }}
           DISPATCH_INPUT: ${{ github.event.inputs.plugins }}
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
 
@@ -48,21 +56,24 @@ jobs:
           for d in */; do
             [ -f "${d}plugin.json" ] && ALL_PLUGINS+=("${d%/}")
           done
+          echo "All plugins: ${ALL_PLUGINS[*]}"
 
-          # Decide which plugins to build
-          if [[ "$EVENT_NAME" == "workflow_dispatch" && "$DISPATCH_INPUT" != "all" && -n "$DISPATCH_INPUT" ]]; then
-            # explicit comma-separated list from workflow_dispatch
-            IFS=',' read -ra CHANGED <<< "$DISPATCH_INPUT"
-            CHANGED=("${CHANGED[@]// /}")    # trim spaces
-          elif [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
-            # workflow_dispatch with "all" → rebuild every plugin
-            CHANGED=("${ALL_PLUGINS[@]}")
+          # ── workflow_dispatch ────────────────────────────────────────────
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            if [[ -z "$DISPATCH_INPUT" || "$DISPATCH_INPUT" == "all" ]]; then
+              CHANGED=("${ALL_PLUGINS[@]}")
+            else
+              IFS=',' read -ra CHANGED <<< "$DISPATCH_INPUT"
+              CHANGED=("${CHANGED[@]// /}")
+            fi
+
+          # ── push event ───────────────────────────────────────────────────
           else
-            # push event → diff against parent commit; only rebuild changed plugins.
-            # On the very first push HEAD^ does not exist — rebuild all plugins.
             CHANGED=()
+
+            # 1. Collect plugins whose source files changed in this push.
             if ! git rev-parse HEAD^ >/dev/null 2>&1; then
-              echo "[INFO] No parent commit (initial push) — building all plugins."
+              # No parent commit (initial push) — treat all as changed.
               CHANGED=("${ALL_PLUGINS[@]}")
             else
               for plugin in "${ALL_PLUGINS[@]}"; do
@@ -71,10 +82,31 @@ jobs:
                 fi
               done
             fi
+
+            # 2. Also build any plugin whose ZIP is missing from the latest release.
+            # This handles the bootstrap case (workflow existed but release was never
+            # created) and re-adds any accidentally deleted assets.
+            EXISTING_ASSETS=$(gh release view latest \
+              --repo "$REPO" \
+              --json assets \
+              --jq '[.assets[].name]' 2>/dev/null || echo "[]")
+
+            for plugin in "${ALL_PLUGINS[@]}"; do
+              # Skip if already queued for rebuild.
+              already=false
+              for c in "${CHANGED[@]:-}"; do [[ "$c" == "$plugin" ]] && already=true; done
+              $already && continue
+
+              ZIP="${plugin}.zip"
+              if ! echo "$EXISTING_ASSETS" | jq -e --arg z "$ZIP" 'index($z) != null' >/dev/null; then
+                echo "[INFO] Release asset '${ZIP}' missing — adding ${plugin} to build list."
+                CHANGED+=("$plugin")
+              fi
+            done
           fi
 
           if [ ${#CHANGED[@]} -eq 0 ]; then
-            echo "No plugin changes detected."
+            echo "No plugin changes and all ZIPs present in latest release — skipping build."
             echo "matrix={\"plugin\":[]}" >> "$GITHUB_OUTPUT"
             echo "any_changed=false"      >> "$GITHUB_OUTPUT"
           else
@@ -156,10 +188,9 @@ jobs:
         run: |
           SHORT_SHA="${COMMIT_SHA:0:7}"
           DATE="$(date -u +%Y-%m-%d)"
-          echo "short_sha=$SHORT_SHA"    >> "$GITHUB_OUTPUT"
-          echo "release_name=Latest ($DATE)" >> "$GITHUB_OUTPUT"
+          echo "short_sha=$SHORT_SHA"         >> "$GITHUB_OUTPUT"
+          echo "release_name=Latest ($DATE)"  >> "$GITHUB_OUTPUT"
 
-          # Build a human-readable list of updated plugins
           PLUGINS_LIST=$(echo "$MATRIX" | jq -r '.plugin[] | "- \(.)"')
           {
             echo "plugins_list<<EOF"
@@ -169,13 +200,6 @@ jobs:
 
       - name: Create / update "latest" release
         uses: softprops/action-gh-release@v2
-        env:
-          REPO: ${{ github.repository }}
-          SERVER: ${{ github.server_url }}
-          SHA: ${{ github.sha }}
-          RELEASE_NAME: ${{ steps.meta.outputs.release_name }}
-          SHORT_SHA: ${{ steps.meta.outputs.short_sha }}
-          PLUGINS_LIST: ${{ steps.meta.outputs.plugins_list }}
         with:
           tag_name: latest
           name: ${{ steps.meta.outputs.release_name }}
