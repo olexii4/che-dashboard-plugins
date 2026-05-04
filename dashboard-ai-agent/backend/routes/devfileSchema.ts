@@ -15,10 +15,10 @@ import { JSONSchema7 } from 'json-schema';
 
 import { baseApiPath } from '@/constants/config';
 import { devfileVersionSchema } from '@/constants/schemas';
-import * as devfileSchemaV200 from '@/devfileSchemas/2.0.0/devfile.json';
-import * as devfileSchemaV210 from '@/devfileSchemas/2.1.0/devfile.json';
-import * as devfileSchemaV220 from '@/devfileSchemas/2.2.0/devfile.json';
-import * as devfileSchemaV230 from '@/devfileSchemas/2.3.0/devfile.json';
+import * as devfileSchemaV200 from '../devfileSchemas/2.0.0/devfile.json';
+import * as devfileSchemaV210 from '../devfileSchemas/2.1.0/devfile.json';
+import * as devfileSchemaV220 from '../devfileSchemas/2.2.0/devfile.json';
+import * as devfileSchemaV230 from '../devfileSchemas/2.3.0/devfile.json';
 import { restParams } from '@/models';
 import { getSchema } from '@/services/helpers';
 
