@@ -91,15 +91,12 @@ export class AiProviderKeyApiService implements IAiProviderKeyApi {
       },
     };
 
-    // Create-first approach: avoids TOCTOU race when two concurrent requests
-    // both observe "secret does not exist" and both try to create.
     try {
       await this.coreV1API.createNamespacedSecret({
         namespace,
         body: secretBody,
       });
     } catch (createError_) {
-      // 409 Conflict means the secret already exists — fall back to replace.
       if (helpers.errors.isKubeClientError(createError_) && createError_.code === 409) {
         try {
           await this.coreV1API.replaceNamespacedSecret({
