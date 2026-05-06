@@ -13,12 +13,20 @@
 import { FastifyInstance } from 'fastify';
 
 import { baseApiPath } from '@/constants/config';
-import { stubAiProviderKeyIds } from '@/routes/api/helpers/__mocks__/getDevWorkspaceClient';
 import { setup, teardown } from '@/utils/appBuilder';
+
+export const stubAiProviderKeyIds = ['openai', 'google/gemini'];
 
 jest.mock('@/routes/api/helpers/getToken.ts');
 jest.mock('@/routes/api/helpers/getDevWorkspaceClient.ts');
 jest.mock('@/routes/api/helpers/getServiceAccountToken.ts');
+jest.mock('../services/aiProviderKeyApi', () => ({
+  AiProviderKeyApiService: jest.fn().mockImplementation(() => ({
+    listProviderIdsWithKey: jest.fn().mockResolvedValue(stubAiProviderKeyIds),
+    createOrReplace: jest.fn().mockResolvedValue(undefined),
+    delete: jest.fn().mockResolvedValue(undefined),
+  })),
+}));
 
 describe('AI Config Routes', () => {
   let app: FastifyInstance;

@@ -14,12 +14,24 @@
 
 import { FastifyInstance } from 'fastify';
 
+import { api } from '@eclipse-che/common';
+
 import { baseApiPath } from '@/constants/config';
-import { stubAiRegistry } from '@/routes/api/helpers/__mocks__/getDevWorkspaceClient';
 import { setup, teardown } from '@/utils/appBuilder';
+
+const stubAiRegistry: api.IAiRegistry = {
+  providers: [{ id: 'openai', name: 'OpenAI', icon: '' }],
+  tools: [],
+  defaultAiProviders: ['openai'],
+};
 
 jest.mock('@/routes/api/helpers/getDevWorkspaceClient.ts');
 jest.mock('@/routes/api/helpers/getServiceAccountToken.ts');
+jest.mock('../services/aiRegistryApi', () => ({
+  AiRegistryApiService: jest.fn().mockImplementation(() => ({
+    get: jest.fn().mockResolvedValue(stubAiRegistry),
+  })),
+}));
 
 describe('AI Registry Route', () => {
   let app: FastifyInstance;

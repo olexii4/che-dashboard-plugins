@@ -16,8 +16,9 @@ import { api } from '@eclipse-che/common';
 import { FastifyInstance } from 'fastify';
 
 import { baseApiPath } from '@/constants/config';
-import { getDevWorkspaceClient } from '@/routes/api/helpers/getDevWorkspaceClient';
+import { getKubeConfig } from '@/routes/api/helpers/getDevWorkspaceClient';
 import { getServiceAccountToken } from '@/routes/api/helpers/getServiceAccountToken';
+import { AiRegistryApiService } from '../services/aiRegistryApi';
 import { getSchema } from '@/services/helpers';
 
 const tags = ['AI Registry'];
@@ -35,7 +36,7 @@ export function registerAiRegistryRoute(isLocalRun: boolean, instance: FastifyIn
         return EMPTY_REGISTRY;
       }
       const token = getServiceAccountToken();
-      const { aiRegistryApi } = getDevWorkspaceClient(token);
+      const aiRegistryApi = new AiRegistryApiService(getKubeConfig(token));
       return aiRegistryApi.get();
     });
   });

@@ -19,8 +19,9 @@ import {
   namespacedSchema,
 } from '@/constants/schemas';
 import { restParams } from '@/models';
-import { getDevWorkspaceClient } from '@/routes/api/helpers/getDevWorkspaceClient';
+import { getKubeConfig } from '@/routes/api/helpers/getDevWorkspaceClient';
 import { getToken } from '@/routes/api/helpers/getToken';
+import { AiProviderKeyApiService } from '../services/aiProviderKeyApi';
 import { getSchema } from '@/services/helpers';
 
 const tags = ['AI Config'];
@@ -47,7 +48,7 @@ export function registerAiConfigRoutes(instance: FastifyInstance) {
       async function (request: FastifyRequest) {
         const { namespace } = request.params as restParams.INamespacedParams;
         const token = getToken(request);
-        const { aiProviderKeyApi } = getDevWorkspaceClient(token);
+        const aiProviderKeyApi = new AiProviderKeyApiService(getKubeConfig(token));
         return aiProviderKeyApi.listProviderIdsWithKey(namespace);
       },
     );
@@ -70,7 +71,7 @@ export function registerAiConfigRoutes(instance: FastifyInstance) {
         const { namespace } = request.params as restParams.INamespacedParams;
         const { toolId, envVarName, apiKey } = request.body as restParams.AiProviderKeyBody;
         const token = getToken(request);
-        const { aiProviderKeyApi } = getDevWorkspaceClient(token);
+        const aiProviderKeyApi = new AiProviderKeyApiService(getKubeConfig(token));
         await aiProviderKeyApi.createOrReplace(namespace, toolId, apiKey, envVarName);
         reply.code(201).send({ toolId });
       },
@@ -87,7 +88,7 @@ export function registerAiConfigRoutes(instance: FastifyInstance) {
       async function (request: FastifyRequest, reply: FastifyReply) {
         const { namespace, toolId } = request.params as restParams.AiProviderKeyNamespacedParams;
         const token = getToken(request);
-        const { aiProviderKeyApi } = getDevWorkspaceClient(token);
+        const aiProviderKeyApi = new AiProviderKeyApiService(getKubeConfig(token));
         await aiProviderKeyApi.delete(namespace, toolId);
         reply.code(204).send();
       },
