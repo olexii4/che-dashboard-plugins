@@ -11,7 +11,7 @@
  */
 
 import { RootState } from '@/store';
-import { AgentPodPhase, AgentPodStatus, LocalDevfile } from '@/store/LocalDevfiles';
+import { AgentPodPhase, AgentPodStatus, LocalDevfile } from '../index';
 import {
   selectAgentPodStatuses,
   selectAgentTerminalUrl,
@@ -20,7 +20,7 @@ import {
   selectLocalDevfiles,
   selectLocalDevfilesError,
   selectLocalDevfilesIsLoading,
-} from '@/store/LocalDevfiles/selectors';
+} from '../selectors';
 
 describe('LocalDevfiles selectors', () => {
   const testDevfile: LocalDevfile = {

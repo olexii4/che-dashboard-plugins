@@ -29,7 +29,7 @@ import {
   extractProjectNames,
   LocalDevfile,
   LocalDevfilesState,
-} from '@/store/LocalDevfiles';
+} from '../index';
 
 const mockNamespace = 'test-namespace';
 

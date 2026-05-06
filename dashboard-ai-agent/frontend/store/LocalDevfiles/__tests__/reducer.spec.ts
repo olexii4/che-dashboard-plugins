@@ -18,7 +18,7 @@ import {
   LocalDevfile,
   localDevfilesReducer,
   LocalDevfilesState,
-} from '@/store/LocalDevfiles';
+} from '../index';
 
 describe('LocalDevfiles reducer', () => {
   const initialState: LocalDevfilesState = {

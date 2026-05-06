@@ -10,7 +10,7 @@
  *   Red Hat, Inc. - initial API and implementation
  */
 
-import { extractProjectNames } from '@/store/LocalDevfiles';
+import { extractProjectNames } from '../index';
 
 describe('extractProjectNames', () => {
   test('returns empty array when no projects section exists', () => {
