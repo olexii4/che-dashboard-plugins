@@ -23,7 +23,7 @@ import {
   MAX_AGENT_PODS_PER_USER,
   startPeriodicAgentCleanup,
   stopPeriodicAgentCleanup,
-} from '@/routes/api/helpers/agentPod';
+} from './agentPod';
 
 jest.mock('@/localRun', () => ({
   isLocalRun: jest.fn(() => false),

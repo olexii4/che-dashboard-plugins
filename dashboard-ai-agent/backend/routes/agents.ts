@@ -31,10 +31,10 @@ import {
   getAgentServiceAccess,
   heartbeatAgentPod,
   startPeriodicAgentCleanup,
-} from '@/routes/api/helpers/agentPod';
+} from '../helpers/agentPod';
 import { getServiceAccountToken } from '@/routes/api/helpers/getServiceAccountToken';
 import { getToken } from '@/routes/api/helpers/getToken';
-import { proxyToTerminal } from '@/routes/api/helpers/terminal';
+import { proxyToTerminal } from '../helpers/terminal';
 import { getSchema } from '@/services/helpers';
 import { logger } from '@/utils/logger';
 

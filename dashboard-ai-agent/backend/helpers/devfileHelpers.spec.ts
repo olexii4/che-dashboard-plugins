@@ -17,7 +17,7 @@ import {
   generateDevfileId,
   MODIFIED_ANNOTATION_PREFIX,
   parseEntries,
-} from '@/routes/api/helpers/devfile';
+} from './devfile';
 
 describe('devfile helpers', () => {
   describe('extractDevfileName', () => {

@@ -29,7 +29,7 @@ import {
   getOrCreateConfigMap,
   MODIFIED_ANNOTATION_PREFIX,
   parseEntries,
-} from '@/routes/api/helpers/devfile';
+} from '../helpers/devfile';
 import { getToken } from '@/routes/api/helpers/getToken';
 import { getSchema } from '@/services/helpers';
 
