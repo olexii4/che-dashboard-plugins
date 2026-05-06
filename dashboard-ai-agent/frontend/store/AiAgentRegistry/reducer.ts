@@ -26,7 +26,7 @@ export interface State {
   error?: string;
 }
 
-const unloadedState: State = {
+export const unloadedState: State = {
   isLoading: false,
   agents: [],
   defaultAgentId: '',

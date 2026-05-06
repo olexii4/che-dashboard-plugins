@@ -70,7 +70,7 @@ export const aiSelectorPlugin: FrontendPlugin = {
     }
   },
   slots: {
-    workspaceCreation: AiSelectorSlot,
+    workspaceCreation: AiSelectorSlot as unknown as ComponentType<Record<string, unknown>>,
     workspaceDetailsOverview: AiToolFormGroup as unknown as ComponentType<Record<string, unknown>>,
     workspacesListColumn: {
       name: 'AI Provider(s)',
