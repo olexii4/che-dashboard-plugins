@@ -29,7 +29,6 @@ import { connect, ConnectedProps } from 'react-redux';
 import { AiSelectorDocsLink } from '@/plugins/ai-selector/components/AiSelector/DocsLink';
 import { AiProviderGallery } from '@/plugins/ai-selector/components/AiSelector/Gallery';
 import { ROUTE } from '@/Routes';
-import { UserPreferencesTab } from '@/services/helpers/types';
 import { RootState } from '@/store';
 import {
   selectAiProviderKeyExists,
@@ -166,7 +165,7 @@ class AiSelector extends React.PureComponent<Props, State> {
       return null;
     }
 
-    const manageKeysHref = `${window.location.origin}/dashboard/#${ROUTE.USER_PREFERENCES}?tab=${UserPreferencesTab.AI_PROVIDER_KEYS}`;
+    const manageKeysHref = `${window.location.origin}/dashboard/#${ROUTE.USER_PREFERENCES}?tab=AiProviderKeys`;
 
     return (
       <Panel>

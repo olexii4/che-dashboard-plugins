@@ -19,7 +19,6 @@ import { AiSelectorErrorBoundary } from '@/plugins/ai-selector/components/AiSele
 import { AiToolIcon } from '@/plugins/ai-selector/components/AiToolIcon';
 import AiProviderKeys from '@/plugins/ai-selector/pages/UserPreferences/AiProviderKeys';
 import AiToolFormGroup from '@/plugins/ai-selector/pages/WorkspaceDetails/OverviewTab/AiTool';
-import { UserPreferencesTab } from '@/services/helpers/types';
 import { RootState } from '@/store';
 import { aiConfigActionCreators, aiConfigReducer } from '@/plugins/ai-selector/store/AiConfig';
 import { selectAiConfigEnabled } from '@/plugins/ai-selector/store/AiConfig/selectors';
@@ -81,7 +80,7 @@ export const aiSelectorPlugin: FrontendPlugin = {
     },
     userPreferencesTab: {
       name: 'AI Provider Keys',
-      key: UserPreferencesTab.AI_PROVIDER_KEYS,
+      key: 'AiProviderKeys',
       component: AiProviderKeys,
       visible: (state: unknown) =>
         selectAiConfigEnabled(state as RootState),
