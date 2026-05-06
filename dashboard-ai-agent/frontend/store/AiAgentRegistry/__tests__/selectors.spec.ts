@@ -20,7 +20,7 @@ import {
   selectAiAgents,
   selectDefaultAgent,
   selectDefaultAgentId,
-} from '@/store/AiAgentRegistry/selectors';
+} from '@/plugins/dashboard-ai-agent/store/AiAgentRegistry/selectors';
 
 describe('AiAgentRegistry selectors', () => {
   const testAgent: api.AiAgentDefinition = {

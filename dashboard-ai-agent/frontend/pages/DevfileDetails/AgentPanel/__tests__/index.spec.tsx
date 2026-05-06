@@ -17,7 +17,7 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import AgentPanel, { Props } from '@/pages/DevfileDetails/AgentPanel';
-import { AgentPodPhase, AgentPodStatus } from '@/store/LocalDevfiles';
+import { AgentPodPhase, AgentPodStatus } from '@/plugins/dashboard-ai-agent/store/LocalDevfiles';
 
 jest.mock('@/components/AgentTerminal', () => {
   return function MockAgentTerminal(props: {

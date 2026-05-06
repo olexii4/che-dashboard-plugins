@@ -14,12 +14,12 @@
 
 import { createReducer } from '@reduxjs/toolkit';
 
-import { DevfileSchema } from '@/services/backend-client/devfileSchemaApi';
+import { DevfileSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devfileSchemaApi';
 import {
   devWorkspaceSchemaErrorAction,
   devWorkspaceSchemaReceiveAction,
   devWorkspaceSchemaRequestAction,
-} from '@/store/DevWorkspaceSchema/actions';
+} from '@/plugins/dashboard-ai-agent/store/DevWorkspaceSchema/actions';
 
 export interface State {
   isLoading: boolean;

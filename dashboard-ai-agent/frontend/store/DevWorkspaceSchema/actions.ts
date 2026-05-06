@@ -15,8 +15,8 @@
 import common from '@eclipse-che/common';
 import { createAction } from '@reduxjs/toolkit';
 
-import { DevfileSchema } from '@/services/backend-client/devfileSchemaApi';
-import { fetchDevWorkspaceSchema } from '@/services/backend-client/devworkspaceSchemaApi';
+import { DevfileSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devfileSchemaApi';
+import { fetchDevWorkspaceSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devworkspaceSchemaApi';
 import { AppThunk } from '@/store';
 
 export const devWorkspaceSchemaRequestAction = createAction('devWorkspaceSchema/request');

@@ -34,9 +34,9 @@ import statusStyles from '@/components/Workspace/Status/index.module.css';
 import styles from '@/Layout/Navigation/index.module.css';
 import { DevWorkspaceStatus } from '@/services/helpers/types';
 import { RootState } from '@/store';
-import { selectAiAgents } from '@/store/AiAgentRegistry';
-import { actionCreators, AgentPodPhase, AgentPodStatus } from '@/store/LocalDevfiles';
-import { selectAgentPodStatuses } from '@/store/LocalDevfiles/selectors';
+import { selectAiAgents } from '@/plugins/dashboard-ai-agent/store/AiAgentRegistry';
+import { actionCreators, AgentPodPhase, AgentPodStatus } from '@/plugins/dashboard-ai-agent/store/LocalDevfiles';
+import { selectAgentPodStatuses } from '@/plugins/dashboard-ai-agent/store/LocalDevfiles/selectors';
 
 function mapPhaseToStatus(phase: AgentPodPhase, ready: boolean): DevWorkspaceStatus {
   switch (phase) {

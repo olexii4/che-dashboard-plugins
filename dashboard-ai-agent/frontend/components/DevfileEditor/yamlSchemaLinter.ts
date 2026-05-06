@@ -30,7 +30,7 @@ import {
   type YAMLMap,
 } from 'yaml';
 
-import { DevfileSchema } from '@/services/backend-client/devfileSchemaApi';
+import { DevfileSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devfileSchemaApi';
 
 const ajv = new Ajv({
   allErrors: true,

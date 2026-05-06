@@ -16,8 +16,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
-import { NavigationAgentList } from '@/Layout/Navigation/AgentList';
-import { AgentPodPhase, AgentPodStatus } from '@/store/LocalDevfiles';
+import { NavigationAgentList } from './AgentList';
+import { AgentPodPhase, AgentPodStatus } from '@/plugins/dashboard-ai-agent/store/LocalDevfiles';
 
 jest.mock('@/contexts/ThemeContext', () => ({
   useTheme: () => ({

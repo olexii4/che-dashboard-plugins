@@ -111,6 +111,7 @@ describe('AiProviderKeys', () => {
           pattern: 'init',
           injectorImage: 'quay.io/example/claude:latest',
           envVarName: 'ANTHROPIC_API_KEY',
+          setupCommand: 'echo setup',
         },
       ],
       providerKeyExists: {
@@ -141,6 +142,7 @@ describe('AiProviderKeys', () => {
           pattern: 'init',
           injectorImage: 'quay.io/example/claude:latest',
           envVarName: 'ANTHROPIC_API_KEY',
+          setupCommand: 'echo setup',
         },
       ],
       providerKeyExists: {
@@ -165,6 +167,7 @@ describe('AiProviderKeys', () => {
           pattern: 'init',
           injectorImage: 'quay.io/example/claude:latest',
           envVarName: 'ANTHROPIC_API_KEY',
+          setupCommand: 'echo setup',
         },
       ],
       providerKeyExists: {},

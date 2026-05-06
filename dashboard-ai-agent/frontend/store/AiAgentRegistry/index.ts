@@ -12,9 +12,9 @@
  *   Red Hat, Inc. - initial API and implementation
  */
 
-export { actionCreators as aiAgentRegistryActionCreators } from '@/store/AiAgentRegistry/actions';
+export { actionCreators as aiAgentRegistryActionCreators } from '@/plugins/dashboard-ai-agent/store/AiAgentRegistry/actions';
 export {
   reducer as aiAgentRegistryReducer,
   State as AiAgentRegistryState,
-} from '@/store/AiAgentRegistry/reducer';
-export * from '@/store/AiAgentRegistry/selectors';
+} from '@/plugins/dashboard-ai-agent/store/AiAgentRegistry/reducer';
+export * from '@/plugins/dashboard-ai-agent/store/AiAgentRegistry/selectors';

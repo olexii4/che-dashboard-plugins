@@ -18,19 +18,19 @@ import { Provider } from 'react-redux';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { Store } from 'redux';
 
-import DevfilesListContainer from '@/containers/DevfilesList';
+import DevfilesListContainer from '../index';
 import getComponentRenderer from '@/services/__mocks__/getComponentRenderer';
 import { AppThunk } from '@/store';
 import { MockStoreBuilder } from '@/store/__mocks__/mockStore';
-import { actionCreators, LocalDevfile } from '@/store/LocalDevfiles';
+import { actionCreators, LocalDevfile } from '@/plugins/dashboard-ai-agent/store/LocalDevfiles';
 
 const mockRequestDevfiles = jest.fn();
 const mockCreateDevfile = jest.fn();
 const mockDeleteDevfile = jest.fn();
 
-jest.mock('@/store/LocalDevfiles', () => {
+jest.mock('@/plugins/dashboard-ai-agent/store/LocalDevfiles', () => {
   const original =
-    jest.requireActual<typeof import('@/store/LocalDevfiles')>('@/store/LocalDevfiles');
+    jest.requireActual<typeof import('@/plugins/dashboard-ai-agent/store/LocalDevfiles')>('@/plugins/dashboard-ai-agent/store/LocalDevfiles');
   return {
     ...original,
     actionCreators: {

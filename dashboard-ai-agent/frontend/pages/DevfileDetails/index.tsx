@@ -41,8 +41,8 @@ import { DropdownActions } from '@/pages/DevfileDetails/DropdownActions';
 import EditorPanel from '@/pages/DevfileDetails/EditorPanel';
 import styles from '@/pages/DevfileDetails/index.module.css';
 import { AppAlerts } from '@/services/alerts/appAlerts';
-import { DevfileSchema } from '@/services/backend-client/devfileSchemaApi';
-import { AgentPodPhase, AgentPodStatus, LocalDevfile } from '@/store/LocalDevfiles';
+import { DevfileSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devfileSchemaApi';
+import { AgentPodPhase, AgentPodStatus, LocalDevfile } from '@/plugins/dashboard-ai-agent/store/LocalDevfiles';
 
 interface Props {
   devfile: LocalDevfile;

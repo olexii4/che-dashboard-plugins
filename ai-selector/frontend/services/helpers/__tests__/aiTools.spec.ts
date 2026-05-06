@@ -38,6 +38,7 @@ const CLAUDE_TOOL: api.AiToolDefinition = {
   pattern: 'init',
   injectorImage: 'quay.io/example/claude-code:next',
   envVarName: 'ANTHROPIC_API_KEY',
+  setupCommand: 'echo setup',
 };
 
 const GEMINI_TOOL: api.AiToolDefinition = {

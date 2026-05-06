@@ -34,7 +34,7 @@ import AgentPodEvents from '@/components/AgentPodEvents';
 import AgentTerminal from '@/components/AgentTerminal';
 import TerminalTools from '@/components/TerminalTools';
 import styles from '@/pages/DevfileDetails/AgentPanel/index.module.css';
-import { AgentPodPhase, AgentPodStatus } from '@/store/LocalDevfiles';
+import { AgentPodPhase, AgentPodStatus } from '@/plugins/dashboard-ai-agent/store/LocalDevfiles';
 
 export interface Props {
   agentPodStatus: AgentPodStatus | undefined;

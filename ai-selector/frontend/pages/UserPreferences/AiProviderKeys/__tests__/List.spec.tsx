@@ -35,6 +35,7 @@ const mockTool1: api.AiToolDefinition = {
   pattern: 'init',
   injectorImage: 'quay.io/example/claude:latest',
   envVarName: 'ANTHROPIC_API_KEY',
+  setupCommand: 'echo setup',
 };
 
 const mockTool2: api.AiToolDefinition = {
@@ -46,6 +47,7 @@ const mockTool2: api.AiToolDefinition = {
   pattern: 'init',
   injectorImage: 'quay.io/example/gpt:latest',
   envVarName: 'OPENAI_API_KEY',
+  setupCommand: 'echo setup',
 };
 
 const mockAiProviders: api.AiProviderDefinition[] = [

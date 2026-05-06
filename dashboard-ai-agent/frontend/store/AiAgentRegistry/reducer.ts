@@ -17,7 +17,7 @@ import {
   aiAgentRegistryErrorAction,
   aiAgentRegistryReceiveAction,
   aiAgentRegistryRequestAction,
-} from '@/store/AiAgentRegistry/actions';
+} from '@/plugins/dashboard-ai-agent/store/AiAgentRegistry/actions';
 
 export interface State {
   isLoading: boolean;

@@ -28,9 +28,9 @@ import { lazyInject } from '@/inversify.config';
 import AgentPanel from '@/pages/DevfileDetails/AgentPanel';
 import EditorPanel from '@/pages/DevfileDetails/EditorPanel';
 import { AppAlerts } from '@/services/alerts/appAlerts';
-import { DevfileSchema } from '@/services/backend-client/devfileSchemaApi';
+import { DevfileSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devfileSchemaApi';
 import { DevWorkspaceStatus } from '@/services/helpers/types';
-import { AgentPodPhase, AgentPodStatus } from '@/store/LocalDevfiles';
+import { AgentPodPhase, AgentPodStatus } from '@/plugins/dashboard-ai-agent/store/LocalDevfiles';
 
 export interface Props {
   agentPodStatus: AgentPodStatus | undefined;

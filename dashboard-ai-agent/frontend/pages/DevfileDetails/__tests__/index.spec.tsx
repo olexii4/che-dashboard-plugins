@@ -18,7 +18,7 @@ import { container } from '@/inversify.config';
 import DevfileDetails from '@/pages/DevfileDetails';
 import { AppAlerts } from '@/services/alerts/appAlerts';
 import { AlertItem } from '@/services/helpers/types';
-import { AgentPodPhase, AgentPodStatus, LocalDevfile } from '@/store/LocalDevfiles';
+import { AgentPodPhase, AgentPodStatus, LocalDevfile } from '@/plugins/dashboard-ai-agent/store/LocalDevfiles';
 
 jest.mock('@/pages/DevfileDetails/AgentPanel');
 jest.mock('@/pages/DevfileDetails/EditorPanel');

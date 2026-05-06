@@ -18,16 +18,16 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { DevWorkspaceStatus } from '@/services/helpers/types';
 import { Workspace } from '@/services/workspace-adapter';
-import { selectAiAgentRegistryEnabled, selectDefaultAgent } from '@/store/AiAgentRegistry';
-import { selectDevWorkspaceSchema } from '@/store/DevWorkspaceSchema';
+import { selectAiAgentRegistryEnabled, selectDefaultAgent } from '@/plugins/dashboard-ai-agent/store/AiAgentRegistry';
+import { selectDevWorkspaceSchema } from '@/plugins/dashboard-ai-agent/store/DevWorkspaceSchema';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   actionCreators,
   AgentPodPhase,
   AgentPodStatus,
   clearAgentTerminalUrl,
-} from '@/store/LocalDevfiles';
-import { selectAgentPodStatuses, selectAgentTerminalUrl } from '@/store/LocalDevfiles/selectors';
+} from '@/plugins/dashboard-ai-agent/store/LocalDevfiles';
+import { selectAgentPodStatuses, selectAgentTerminalUrl } from '@/plugins/dashboard-ai-agent/store/LocalDevfiles/selectors';
 import { devWorkspacesActionCreators } from '@/store/Workspaces/devWorkspaces';
 
 // Lazy-load LoaderAgentPanel to break circular dependency through the plugin

@@ -16,8 +16,8 @@ import {
   aiAgentRegistryErrorAction,
   aiAgentRegistryReceiveAction,
   aiAgentRegistryRequestAction,
-} from '@/store/AiAgentRegistry/actions';
-import { reducer, State, unloadedState } from '@/store/AiAgentRegistry/reducer';
+} from '@/plugins/dashboard-ai-agent/store/AiAgentRegistry/actions';
+import { reducer, State, unloadedState } from '@/plugins/dashboard-ai-agent/store/AiAgentRegistry/reducer';
 
 describe('AiAgentRegistry reducer', () => {
   let initialState: State;

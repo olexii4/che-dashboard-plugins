@@ -31,6 +31,7 @@ const mockProviders: api.AiToolDefinition[] = [
     pattern: 'bundle' as const,
     injectorImage: 'quay.io/example/gemini-cli:next',
     envVarName: 'GEMINI_API_KEY',
+    setupCommand: 'echo setup',
   },
   {
     providerId: 'anthropic/claude',
@@ -41,6 +42,7 @@ const mockProviders: api.AiToolDefinition[] = [
     pattern: 'init' as const,
     injectorImage: 'quay.io/example/claude-code:next',
     envVarName: 'ANTHROPIC_API_KEY',
+    setupCommand: 'echo setup',
   },
 ];
 

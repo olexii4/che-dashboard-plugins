@@ -13,7 +13,7 @@
 import { FrontendPlugin } from '@eclipse-che/dashboard-plugins';
 import React from 'react';
 
-import { selectLocalDevfiles } from '@/store/LocalDevfiles/selectors';
+import { selectLocalDevfiles } from '@/plugins/dashboard-ai-agent/store/LocalDevfiles/selectors';
 
 export const dashboardAiAgentPlugin: FrontendPlugin = {
   manifest: {

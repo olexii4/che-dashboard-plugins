@@ -55,6 +55,8 @@ const mockAiTools: api.AiToolDefinition[] = [
     binary: 'claude',
     pattern: 'init',
     injectorImage: 'quay.io/test/claude-code:latest',
+    envVarName: 'ANTHROPIC_API_KEY',
+    setupCommand: 'echo setup',
   },
   {
     providerId: 'openai/codex',
@@ -64,6 +66,8 @@ const mockAiTools: api.AiToolDefinition[] = [
     binary: 'codex',
     pattern: 'bundle',
     injectorImage: 'quay.io/test/codex:latest',
+    envVarName: 'OPENAI_API_KEY',
+    setupCommand: 'echo setup',
   },
 ];
 

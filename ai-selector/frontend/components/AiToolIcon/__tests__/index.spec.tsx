@@ -74,6 +74,8 @@ const mockAiTools: api.AiToolDefinition[] = [
     binary: 'claude',
     pattern: 'bundle',
     injectorImage: 'quay.io/test/claude-code:latest',
+    envVarName: 'ANTHROPIC_API_KEY',
+    setupCommand: 'echo setup',
   },
   {
     providerId: 'github/copilot',
@@ -83,6 +85,8 @@ const mockAiTools: api.AiToolDefinition[] = [
     binary: 'copilot',
     pattern: 'init',
     injectorImage: 'quay.io/test/copilot:latest',
+    envVarName: 'GITHUB_TOKEN',
+    setupCommand: 'echo setup',
   },
 ];
 

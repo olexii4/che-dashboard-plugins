@@ -20,12 +20,12 @@ import DevfilesList from '@/pages/DevfilesList';
 import { RootState } from '@/store';
 import { selectEmptyWorkspaceUrl } from '@/store/DevfileRegistries/selectors';
 import { selectDefaultNamespace } from '@/store/InfrastructureNamespaces/selectors';
-import { actionCreators } from '@/store/LocalDevfiles';
+import { actionCreators } from '@/plugins/dashboard-ai-agent/store/LocalDevfiles';
 import {
   selectLocalDevfiles,
   selectLocalDevfilesError,
   selectLocalDevfilesIsLoading,
-} from '@/store/LocalDevfiles/selectors';
+} from '@/plugins/dashboard-ai-agent/store/LocalDevfiles/selectors';
 
 type Props = MappedProps & {
   navigate: NavigateFunction;

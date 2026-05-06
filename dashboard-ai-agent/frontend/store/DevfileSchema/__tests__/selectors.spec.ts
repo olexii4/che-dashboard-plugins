@@ -10,13 +10,13 @@
  *   Red Hat, Inc. - initial API and implementation
  */
 
-import { DevfileSchema } from '@/services/backend-client/devfileSchemaApi';
+import { DevfileSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devfileSchemaApi';
 import { RootState } from '@/store';
 import {
   selectDevfileSchema,
   selectDevfileSchemaError,
   selectDevfileSchemaIsLoading,
-} from '@/store/DevfileSchema/selectors';
+} from '@/plugins/dashboard-ai-agent/store/DevfileSchema/selectors';
 
 describe('DevfileSchema selectors', () => {
   const schema = { type: 'object' } as DevfileSchema;

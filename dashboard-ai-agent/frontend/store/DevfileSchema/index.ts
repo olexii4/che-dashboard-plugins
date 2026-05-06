@@ -12,9 +12,9 @@
  *   Red Hat, Inc. - initial API and implementation
  */
 
-export { actionCreators as devfileSchemaActionCreators } from '@/store/DevfileSchema/actions';
+export { actionCreators as devfileSchemaActionCreators } from '@/plugins/dashboard-ai-agent/store/DevfileSchema/actions';
 export {
   reducer as devfileSchemaReducer,
   State as DevfileSchemaState,
-} from '@/store/DevfileSchema/reducer';
-export * from '@/store/DevfileSchema/selectors';
+} from '@/plugins/dashboard-ai-agent/store/DevfileSchema/reducer';
+export * from '@/plugins/dashboard-ai-agent/store/DevfileSchema/selectors';

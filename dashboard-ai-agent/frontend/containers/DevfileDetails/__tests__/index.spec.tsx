@@ -19,9 +19,9 @@ import { Provider } from 'react-redux';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { Store } from 'redux';
 
-import DevfileDetailsContainer from '@/containers/DevfileDetails';
+import DevfileDetailsContainer from '../index';
 import getComponentRenderer from '@/services/__mocks__/getComponentRenderer';
-import { DevfileSchema } from '@/services/backend-client/devfileSchemaApi';
+import { DevfileSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devfileSchemaApi';
 import { AppThunk } from '@/store';
 import { MockStoreBuilder } from '@/store/__mocks__/mockStore';
 import {
@@ -30,7 +30,7 @@ import {
   AgentPodStatus,
   LocalDevfile,
   LocalDevfilesState,
-} from '@/store/LocalDevfiles';
+} from '@/plugins/dashboard-ai-agent/store/LocalDevfiles';
 
 const mockRequestDevfiles = jest.fn();
 const mockSaveDevfile = jest.fn();
@@ -43,9 +43,9 @@ const mockSubscribeToConfigMapChanges = jest.fn();
 const mockUnsubscribeFromConfigMapChanges = jest.fn();
 const mockRequestDevfileSchema = jest.fn();
 
-jest.mock('@/store/LocalDevfiles', () => {
+jest.mock('@/plugins/dashboard-ai-agent/store/LocalDevfiles', () => {
   const original =
-    jest.requireActual<typeof import('@/store/LocalDevfiles')>('@/store/LocalDevfiles');
+    jest.requireActual<typeof import('@/plugins/dashboard-ai-agent/store/LocalDevfiles')>('@/plugins/dashboard-ai-agent/store/LocalDevfiles');
   return {
     ...original,
     actionCreators: {
@@ -96,9 +96,9 @@ jest.mock('@/store/LocalDevfiles', () => {
   };
 });
 
-jest.mock('@/store/DevfileSchema', () => {
+jest.mock('@/plugins/dashboard-ai-agent/store/DevfileSchema', () => {
   const original =
-    jest.requireActual<typeof import('@/store/DevfileSchema')>('@/store/DevfileSchema');
+    jest.requireActual<typeof import('@/plugins/dashboard-ai-agent/store/DevfileSchema')>('@/plugins/dashboard-ai-agent/store/DevfileSchema');
   return {
     ...original,
     devfileSchemaActionCreators: {

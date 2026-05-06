@@ -65,6 +65,8 @@ describe('AiConfig, reducer', () => {
           binary: 'claude',
           pattern: 'init',
           injectorImage: 'quay.io/example/claude-code:latest',
+          envVarName: 'ANTHROPIC_API_KEY',
+          setupCommand: 'echo setup',
         },
       ],
       defaultAiProviders: ['anthropic/claude'],

@@ -29,7 +29,7 @@ import styles from '@/components/DevfileEditor/index.module.css';
 import { createDevfileSchemaCompletion } from '@/components/DevfileEditor/yamlSchemaCompletion';
 import { createDevfileSchemaLinter } from '@/components/DevfileEditor/yamlSchemaLinter';
 import { useTheme } from '@/contexts/ThemeContext';
-import { DevfileSchema } from '@/services/backend-client/devfileSchemaApi';
+import { DevfileSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devfileSchemaApi';
 
 export type Props = {
   value: string;

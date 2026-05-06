@@ -26,6 +26,7 @@ const mockProvider: api.AiToolDefinition = {
   pattern: 'bundle',
   injectorImage: 'quay.io/example/gemini-cli:next',
   envVarName: 'GEMINI_API_KEY',
+  setupCommand: 'echo setup',
 };
 
 describe('AiProviderKeysAddEditModal', () => {

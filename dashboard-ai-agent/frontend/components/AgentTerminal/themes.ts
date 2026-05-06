@@ -17,7 +17,7 @@ import {
   TERMINAL_THEMES,
   type TerminalTheme,
   type TerminalThemeName,
-} from '@eclipse-che/common';
+} from '../../constants/terminalThemes';
 
 export { isTerminalThemeName, TERMINAL_THEMES, type TerminalTheme, type TerminalThemeName };
 

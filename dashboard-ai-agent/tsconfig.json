@@ -6,6 +6,7 @@
     "baseUrl": ".",
     "paths": {
       "@eclipse-che/dashboard-plugins": ["../packages/dashboard-plugins/src"],
+      "@/plugins/dashboard-ai-agent/*": ["./frontend/*"],
       "@/*": ["../packages/stubs/src/*"]
     },
     "types": ["jest", "@testing-library/jest-dom"]

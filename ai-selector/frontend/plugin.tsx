@@ -12,7 +12,7 @@
 
 import { FrontendPlugin } from '@eclipse-che/dashboard-plugins';
 
-import React from 'react';
+import React, { ComponentType } from 'react';
 
 import AiSelector from '@/plugins/ai-selector/components/AiSelector';
 import { AiSelectorErrorBoundary } from '@/plugins/ai-selector/components/AiSelector/ErrorBoundary';
@@ -71,7 +71,7 @@ export const aiSelectorPlugin: FrontendPlugin = {
   },
   slots: {
     workspaceCreation: AiSelectorSlot,
-    workspaceDetailsOverview: AiToolFormGroup,
+    workspaceDetailsOverview: AiToolFormGroup as unknown as ComponentType<Record<string, unknown>>,
     workspacesListColumn: {
       name: 'AI Provider(s)',
       component: AiToolIcon,

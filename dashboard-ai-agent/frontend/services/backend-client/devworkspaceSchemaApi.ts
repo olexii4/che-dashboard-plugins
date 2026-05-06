@@ -16,7 +16,7 @@ import common from '@eclipse-che/common';
 import axios from 'axios';
 
 import { dashboardBackendPrefix } from '@/services/backend-client/const';
-import { DevfileSchema } from '@/services/backend-client/devfileSchemaApi';
+import { DevfileSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devfileSchemaApi';
 
 export async function fetchDevWorkspaceSchema(): Promise<DevfileSchema> {
   try {

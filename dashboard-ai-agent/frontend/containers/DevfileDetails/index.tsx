@@ -20,20 +20,20 @@ import Fallback from '@/components/Fallback';
 import { useTheme } from '@/contexts/ThemeContext';
 import DevfileDetails from '@/pages/DevfileDetails';
 import { RootState } from '@/store';
-import { selectAiAgentRegistryEnabled, selectDefaultAgent } from '@/store/AiAgentRegistry';
-import { devfileSchemaActionCreators, selectDevfileSchema } from '@/store/DevfileSchema';
+import { selectAiAgentRegistryEnabled, selectDefaultAgent } from '@/plugins/dashboard-ai-agent/store/AiAgentRegistry';
+import { devfileSchemaActionCreators, selectDevfileSchema } from '@/plugins/dashboard-ai-agent/store/DevfileSchema';
 import {
   actionCreators,
   AgentPodPhase,
   AgentPodStatus,
   clearAgentTerminalUrl,
-} from '@/store/LocalDevfiles';
+} from '@/plugins/dashboard-ai-agent/store/LocalDevfiles';
 import {
   selectAgentPodStatuses,
   selectAgentTerminalUrl,
   selectLocalDevfiles,
   selectLocalDevfilesIsLoading,
-} from '@/store/LocalDevfiles/selectors';
+} from '@/plugins/dashboard-ai-agent/store/LocalDevfiles/selectors';
 
 interface OwnProps {
   namespace: string;

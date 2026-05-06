@@ -30,6 +30,7 @@ const aiTools: api.AiToolDefinition[] = [
     pattern: 'init',
     injectorImage: 'quay.io/test/claude:latest',
     envVarName: 'ANTHROPIC_API_KEY',
+    setupCommand: 'echo setup',
   },
   {
     providerId: 'openai/codex',
@@ -39,6 +40,8 @@ const aiTools: api.AiToolDefinition[] = [
     binary: 'codex',
     pattern: 'init',
     injectorImage: 'quay.io/test/codex:latest',
+    envVarName: 'OPENAI_API_KEY',
+    setupCommand: 'echo setup',
   },
 ];
 

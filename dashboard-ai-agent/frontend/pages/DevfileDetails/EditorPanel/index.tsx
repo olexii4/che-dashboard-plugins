@@ -19,7 +19,7 @@ import React from 'react';
 import { DevfileEditor } from '@/components/DevfileEditor';
 import DevfileEditorTools from '@/components/DevfileEditorTools';
 import styles from '@/pages/DevfileDetails/EditorPanel/index.module.css';
-import { DevfileSchema } from '@/services/backend-client/devfileSchemaApi';
+import { DevfileSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devfileSchemaApi';
 
 export interface Props {
   devfileName: string;

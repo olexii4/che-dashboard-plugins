@@ -16,8 +16,8 @@ import common from '@eclipse-che/common';
 import { AxiosError } from 'axios';
 import mockAxios from 'axios';
 
-import { DevfileSchema } from '@/services/backend-client/devfileSchemaApi';
-import { fetchDevWorkspaceSchema } from '@/services/backend-client/devworkspaceSchemaApi';
+import { DevfileSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devfileSchemaApi';
+import { fetchDevWorkspaceSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devworkspaceSchemaApi';
 
 const mockGet = mockAxios.get as jest.Mock;
 

@@ -59,7 +59,7 @@ import { DeleteConfirmation } from '@/pages/DevfileDetails/DeleteConfirmation';
 import { DEVFILE_FALLBACK } from '@/pages/DevfilesList/const';
 import styles from '@/pages/DevfilesList/index.module.css';
 import match from '@/services/helpers/filter';
-import { LocalDevfile } from '@/store/LocalDevfiles';
+import { LocalDevfile } from '@/plugins/dashboard-ai-agent/store/LocalDevfiles';
 
 interface Props {
   devfiles: LocalDevfile[];

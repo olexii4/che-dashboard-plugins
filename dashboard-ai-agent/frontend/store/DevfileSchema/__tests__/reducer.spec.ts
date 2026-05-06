@@ -10,13 +10,13 @@
  *   Red Hat, Inc. - initial API and implementation
  */
 
-import { DevfileSchema } from '@/services/backend-client/devfileSchemaApi';
+import { DevfileSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devfileSchemaApi';
 import {
   devfileSchemaErrorAction,
   devfileSchemaReceiveAction,
   devfileSchemaRequestAction,
-} from '@/store/DevfileSchema/actions';
-import { reducer, State, unloadedState } from '@/store/DevfileSchema/reducer';
+} from '@/plugins/dashboard-ai-agent/store/DevfileSchema/actions';
+import { reducer, State, unloadedState } from '@/plugins/dashboard-ai-agent/store/DevfileSchema/reducer';
 
 describe('DevfileSchema reducer', () => {
   let initialState: State;

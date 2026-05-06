@@ -30,6 +30,7 @@ const geminiProvider: api.AiToolDefinition = {
   pattern: 'bundle' as const,
   injectorImage: 'quay.io/example/gemini-cli:next',
   envVarName: 'GEMINI_API_KEY',
+  setupCommand: 'echo setup',
 };
 
 afterEach(() => {

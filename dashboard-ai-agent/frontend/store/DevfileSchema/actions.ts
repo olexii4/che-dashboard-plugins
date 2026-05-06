@@ -13,7 +13,7 @@
 import common from '@eclipse-che/common';
 import { createAction } from '@reduxjs/toolkit';
 
-import { DevfileSchema, fetchDevfileSchema } from '@/services/backend-client/devfileSchemaApi';
+import { DevfileSchema, fetchDevfileSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devfileSchemaApi';
 import { AppThunk } from '@/store';
 
 export const devfileSchemaRequestAction = createAction('devfileSchema/request');

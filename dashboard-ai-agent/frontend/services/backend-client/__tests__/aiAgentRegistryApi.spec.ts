@@ -16,7 +16,7 @@ import common, { api } from '@eclipse-che/common';
 import { AxiosError } from 'axios';
 import mockAxios from 'axios';
 
-import { fetchAiAgentRegistry } from '@/services/backend-client/aiAgentRegistryApi';
+import { fetchAiAgentRegistry } from '@/plugins/dashboard-ai-agent/services/backend-client/aiAgentRegistryApi';
 
 const mockGet = mockAxios.get as jest.Mock;
 

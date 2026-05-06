@@ -20,9 +20,9 @@ import React from 'react';
 import LoaderAgentPanel, { Props } from '@/components/LoaderAgentPanel';
 import { container } from '@/inversify.config';
 import { AppAlerts } from '@/services/alerts/appAlerts';
-import { DevfileSchema } from '@/services/backend-client/devfileSchemaApi';
+import { DevfileSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devfileSchemaApi';
 import { AlertItem, DevWorkspaceStatus } from '@/services/helpers/types';
-import { AgentPodPhase, AgentPodStatus } from '@/store/LocalDevfiles';
+import { AgentPodPhase, AgentPodStatus } from '@/plugins/dashboard-ai-agent/store/LocalDevfiles';
 
 jest.mock('@/pages/DevfileDetails/AgentPanel', () => {
   return function MockAgentPanel(props: {

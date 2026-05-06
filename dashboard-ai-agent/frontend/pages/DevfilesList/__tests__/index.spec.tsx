@@ -15,7 +15,7 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import DevfilesList from '@/pages/DevfilesList';
-import { LocalDevfile } from '@/store/LocalDevfiles';
+import { LocalDevfile } from '@/plugins/dashboard-ai-agent/store/LocalDevfiles';
 
 jest.mock('@/components/Head', () => {
   return function MockHead() {

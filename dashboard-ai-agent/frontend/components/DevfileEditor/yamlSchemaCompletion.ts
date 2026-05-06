@@ -19,7 +19,7 @@ import type { Scalar as YamlScalar, YAMLMap } from 'yaml';
 import type { Node as YamlNode } from 'yaml';
 import { isMap, isSeq, parseDocument } from 'yaml';
 
-import { DevfileSchema } from '@/services/backend-client/devfileSchemaApi';
+import { DevfileSchema } from '@/plugins/dashboard-ai-agent/services/backend-client/devfileSchemaApi';
 
 interface JsonSchemaProperty {
   description?: string;
