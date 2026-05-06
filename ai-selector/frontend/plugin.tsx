@@ -74,7 +74,7 @@ export const aiSelectorPlugin: FrontendPlugin = {
     workspaceDetailsOverview: AiToolFormGroup as unknown as ComponentType<Record<string, unknown>>,
     workspacesListColumn: {
       name: 'AI Provider(s)',
-      component: AiToolIcon,
+      component: AiToolIcon as unknown as ComponentType<Record<string, unknown>>,
       visible: (state: unknown) =>
         selectAiConfigEnabled(state as RootState),
     },
