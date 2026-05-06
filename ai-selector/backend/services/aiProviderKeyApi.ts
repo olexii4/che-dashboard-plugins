@@ -18,7 +18,7 @@ import {
   CoreV1API,
   prepareCoreV1API,
 } from '@/devworkspaceClient/services/helpers/prepareCoreV1API';
-import { IAiProviderKeyApi } from '@/devworkspaceClient/types';
+
 
 const API_ERROR_LABEL = 'CORE_V1_API_ERROR';
 
@@ -43,7 +43,7 @@ function buildSecretLabels(providerId: string): Record<string, string> {
   };
 }
 
-export class AiProviderKeyApiService implements IAiProviderKeyApi {
+export class AiProviderKeyApiService {
   private readonly coreV1API: CoreV1API;
 
   constructor(kc: k8s.KubeConfig) {

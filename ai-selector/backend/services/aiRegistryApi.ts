@@ -19,7 +19,7 @@ import {
   CoreV1API,
   prepareCoreV1API,
 } from '@/devworkspaceClient/services/helpers/prepareCoreV1API';
-import { IAiRegistryApi } from '@/devworkspaceClient/types';
+
 import { logger } from '@/utils/logger';
 
 const API_ERROR_LABEL = 'CORE_V1_API_ERROR';
@@ -34,7 +34,7 @@ const EMPTY_REGISTRY: api.IAiRegistry = {
   defaultAiProviders: [],
 };
 
-export class AiRegistryApiService implements IAiRegistryApi {
+export class AiRegistryApiService {
   private readonly coreV1API: CoreV1API;
   constructor(kubeConfig: k8s.KubeConfig) {
     this.coreV1API = prepareCoreV1API(kubeConfig);

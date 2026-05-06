@@ -20,10 +20,10 @@ import {
   getAgentServiceAccess,
   getAgentServiceUrl,
   heartbeatAgentPod,
-  MAX_AGENT_PODS_PER_USER,
   startPeriodicAgentCleanup,
   stopPeriodicAgentCleanup,
 } from './agentPod';
+import { MAX_AGENT_PODS_PER_USER } from './agentPodConstants';
 
 jest.mock('@/localRun', () => ({
   isLocalRun: jest.fn(() => false),

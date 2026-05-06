@@ -20,7 +20,7 @@ import { baseApiPath } from '@/constants/config';
 import { setup, teardown } from '@/utils/appBuilder';
 
 const stubAiRegistry: api.IAiRegistry = {
-  providers: [{ id: 'openai', name: 'OpenAI', icon: '' }],
+  providers: [{ id: 'openai', name: 'OpenAI', publisher: 'OpenAI', icon: '' }],
   tools: [],
   defaultAiProviders: ['openai'],
 };
